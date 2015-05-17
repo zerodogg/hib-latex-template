@@ -1,0 +1,123 @@
+% hib-paper.tex
+% A LaTeX paper template that fits the style specifications for HiB (Høgskolen i
+% Bergen/Bergen University College). See README.md for more information.
+%
+% To the extent possible under law, Eskild Hustvedt has waived all copyright and
+% related or neighboring rights to this work. This work is published from:
+% Norway. https://creativecommons.org/publicdomain/zero/1.0/
+
+\documentclass[a4paper,12pt,titlepage]{article}
+% The document title
+\newcommand{\tittel}{TITTEL}
+% The document author
+\newcommand{\forfattar}{Eskild Hustvedt}
+% The document date
+\newcommand{\dato}{YYYY-MM-DD}
+% NOTE: You should also edit titlepage.tex
+
+% Lets LaTeX know about the title, author and date
+\author{\forfattar}
+\title{\tittel}
+\date{\dato}
+
+% Norwegian using UTF-8
+\usepackage[nynorsk]{babel}
+% Enable word-processor-like layouts
+\usepackage{wordlike}
+% Use 1 1/2 line spacing
+\usepackage{setspace}
+\onehalfspacing
+% Use hyperlinks
+\usepackage{hyperref}
+% Needed to generate the footer
+\usepackage{lastpage}
+% Style
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[L]{\dato}
+\fancyhead[C]{\tittel}
+\fancyhead[R]{\forfattar}
+\fancyfoot[L]{\thepage\ av~\pageref{LastPage}}
+\fancyfoot[C]{}
+
+% Include a decimal in top-level sections (ref: the HiB writing guidelines)
+\renewcommand*\thesection{\arabic{section}.0}
+\renewcommand*\thesubsection{\arabic{section}.\arabic{subsection}}
+
+% -- Bibliography style --
+% Style: harvard according to
+% http://sokogskriv.no/kildebruk-og-referanser/referansestiler/harvard/
+\usepackage[style=authoryear,maxbibnames=99,maxcitenames=3,sorting=nyt,firstinits,alldates=iso8601,dashed=false,uniquename=init]{biblatex}
+%   Sort by last-name
+\DeclareNameAlias{sortname}{last-first}
+%   Use 1.5 line spacing
+\setlength\bibitemsep{1.5\itemsep}
+%   Use «et al.» and «besøkt» instead of the defaults
+\DefineBibliographyStrings{nynorsk}{%
+    andothers = {et al.},
+    urlseen = {besøkt}
+}
+%   Disable quotes around inbook and incollection
+\DeclareFieldFormat[inbook]{citetitle}{#1}
+\DeclareFieldFormat[inbook]{title}{#1}
+\DeclareFieldFormat[incollection]{citetitle}{#1}
+\DeclareFieldFormat[incollection]{title}{#1}
+%    Proper URL styling and text
+\DeclareFieldFormat{url}{Tilgjengeleg fra: <\url{#1}>}
+\DeclareFieldFormat{urldate}{[Lest: #1]}
+%    Append [Internett] to online entries
+\DeclareFieldFormat[online]{title}{\textit{#1} [Internett]}
+%   Use & instead of "and"/"og"
+\renewcommand*{\finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\&\space}
+%   Ignore ISBN
+\AtEveryBibitem{\clearfield{isbn}}
+%   Use parenthesis around the year in plain citations
+\let\cite\textcite
+% -- end bibliography style --
+
+% The bibliography database
+\addbibresource{kjelder.bib}
+
+% \textsubscript and \textsuperscript
+\usepackage{fixltx2e}
+
+% The tabularx environment (better tables)
+\usepackage{tabularx}
+
+% The tabu/longtabu/longtable environment (multi-page tables)
+\usepackage{longtable}
+\usepackage{tabu}
+
+% Use proper fonts
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}
+\setsansfont{Liberation Sans}
+
+% Use an empty line to indicate new paragraphs
+\usepackage{parskip}
+
+% Provides the "H" placement for figures, tables etc. which gives better control
+% over where a figure appears.
+\usepackage{float}
+
+% Start document
+\begin{document}
+
+% ----------------------------------------------------------------
+
+% Generates the titlepage
+\include{titlepage}
+% insert the toc
+\tableofcontents
+\newpage
+% Edit content.tex for the actual content
+\include{content}
+% Bibliography
+\newpage
+
+\printbibliography
+\addcontentsline{toc}{section}{Referanser}
+
+\end{document}
