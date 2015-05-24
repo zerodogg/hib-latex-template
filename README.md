@@ -1,6 +1,6 @@
 # A complete LaTeX project for students at Høgskolen i Bergen (Bergen University College)
 
-This directory contains a complete ready-to-use LaTeX project for students
+This repository contains a complete ready-to-use LaTeX project for students
 attending [Høgskolen i Bergen (HiB)](http://hib.no).
 
 Citation and bibliography fits the Harvard style as presented on [Søk og
@@ -31,6 +31,12 @@ actual content of your paper.
 
 Run `make` to compile the project. This will count the words, download the HiB
 logo if needed and compile the document.
+
+## Other templates
+
+Some simpler templates can be found in my more general LaTeX template
+repository
+[zerodogg/latex-templates](https://github.com/zerodogg/latex-templates).
 
 ## License
 
