@@ -7,7 +7,7 @@ compile: count
 clean:
 	rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.toc paper-blx.bib paper.bcf paper.run.xml titlepage.aux content.aux
 count:
-	texcount -total paper.tex|grep 'in text' |perl -pe 's/\D//g' > x-count
+	texcount -total paper.tex|grep 'in text' |perl -pe 's/\D//g' > .x-count
 watch:
 	while :; do inotifywait -q -q paper.tex; make --no-print-directory build;done
 checkGetHibLogo:
