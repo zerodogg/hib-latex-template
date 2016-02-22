@@ -13,7 +13,7 @@ clean:
 count:
 	texcount -merge -total paper.tex|grep 'in text' |perl -pe 's/\D//g' > .x-count
 watch:
-	while :; do inotifywait -q -q paper.tex; make --no-print-directory build;done
+	while :; do inotifywait -q -q *.tex *.bib; make --no-print-directory build;done
 checkGetHibLogo:
 	@-[ -e hiblogo.png ] || make --no-print-directory getHibLogo
 getHibLogo:
