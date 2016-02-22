@@ -1,9 +1,13 @@
+XELATEX=xelatex -interaction=nonstopmode -halt-on-error
+
 build:checkGetHibLogo compile clean
-compile: count
-	xelatex paper.tex
+compile:
+	touch .x-count
+	$(XELATEX) paper.tex
 	biber paper
-	xelatex paper.tex
-	xelatex paper.tex
+	@make --no-print-directory count
+	$(XELATEX) paper.tex
+	$(XELATEX) paper.tex
 clean:
 	rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.toc paper-blx.bib paper.bcf paper.run.xml titlepage.aux content.aux
 count:
