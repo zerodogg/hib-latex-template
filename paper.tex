@@ -22,23 +22,37 @@
 
 % Norwegian using UTF-8
 \usepackage[nynorsk]{babel}
+% Converts "" to «» automatically
+\usepackage[norwegian=guillemets]{csquotes}
+\MakeOuterQuote{"}
 % Enable word-processor-like layouts
 \usepackage{wordlike}
 % Use 1 1/2 line spacing
 \usepackage{setspace}
 \onehalfspacing
 % Use hyperlinks
-\usepackage{hyperref}
+\usepackage[pdfborder={0 0 0}]{hyperref}
 % Needed to generate the footer
 \usepackage{lastpage}
 % Style
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[L]{\dato}
+    % Date in the top left corner
+\fancyhead[L]{\today}
+    % Document title
 \fancyhead[C]{\tittel}
+    % Author name in the top right corner
 \fancyhead[R]{\forfattar}
-\fancyfoot[L]{\thepage\ av~\pageref{LastPage}}
+    % Page numbering in the bottom left corner
+\fancyfoot[L]{\thepage\ av \pageref{LastPage}}
+    % Removes duplicate page numbering at the bottom
 \fancyfoot[C]{}
+\fancypagestyle{fancyplain}{%
+    \fancyfoot[L]{\thepage}
+}
+
+% A "complete" reference ot another part of the paper (incl. page number)
+\newcommand{\fullref}[1]{\ref{#1} s.~\pageref{#1}}
 
 % Include a decimal in top-level sections (ref: the HiB writing guidelines)
 \renewcommand*\thesection{\arabic{section}.0}
@@ -47,7 +61,7 @@
 % -- Bibliography style --
 % Style: harvard according to
 % http://sokogskriv.no/kildebruk-og-referanser/referansestiler/harvard/
-\usepackage[style=authoryear,maxbibnames=99,maxcitenames=3,sorting=nyt,firstinits,alldates=iso8601,dashed=false,uniquename=init]{biblatex}
+\usepackage[style=authoryear,maxbibnames=99,maxcitenames=3,sorting=nyt,firstinits,alldates=iso8601,dashed=false,uniquename=init,backend=biber]{biblatex}
 %   Sort by last-name
 \DeclareNameAlias{sortname}{last-first}
 %   Use 1.5 line spacing
@@ -89,7 +103,11 @@
 % The tabu/longtabu/longtable environment (multi-page tables)
 \usepackage{longtable}
 \usepackage{tabu}
+% booktabs provides access to \caption in tabu-tables
+\usepackage{booktabs}
 
+% Grants access to \ding for special characters
+\usepackage{pifont}
 % Use proper fonts
 \usepackage{fontspec}
 \setmainfont{Liberation Serif}
@@ -101,6 +119,17 @@
 % Provides the "H" placement for figures, tables etc. which gives better control
 % over where a figure appears.
 \usepackage{float}
+
+% Creates a command (\bibliografi) that can be used to insert the bibliography
+\newcommand{\bibliografi}{\newpage\printbibliography\addcontentsline{toc}{section}{Referanser}}
+
+% Loads the "appendix"-package, for better appendices
+\usepackage{appendix}
+% Defines a correct language for the appendix title
+\renewcommand{\appendixpagename}{Vedlegg}
+\renewcommand{\appendixtocname}{Vedlegg}
+% Adds a \vedlegg-command that can be used to define when the appendices start
+\newcommand{\vedlegg}{\newpage\appendix\appendixpage\addappheadtotoc}
 
 % Start document
 \begin{document}
@@ -115,9 +144,5 @@
 % Edit content.tex for the actual content
 \include{content}
 % Bibliography
-\newpage
-
-\printbibliography
-\addcontentsline{toc}{section}{Referanser}
-
+\bibliografi
 \end{document}
