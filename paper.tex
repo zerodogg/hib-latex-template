@@ -30,6 +30,9 @@
 % Use 1 1/2 line spacing
 \usepackage{setspace}
 \onehalfspacing
+% 1.0 line spacing in quotes
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\setstretch{1}}
 % Use hyperlinks
 \usepackage[pdfborder={0 0 0}]{hyperref}
 % Needed to generate the footer
