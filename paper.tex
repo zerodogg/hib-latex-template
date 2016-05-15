@@ -84,6 +84,7 @@
 \DeclareFieldFormat{urldate}{[Lest: #1]}
 %    Append [Internett] to online entries
 \DeclareFieldFormat[online]{title}{\textit{#1} [Internett]}
+\DeclareFieldFormat[incollection]{booktitle}{\iffieldundef{url}{\textit{#1}}{\textit{#1} [Internett]}}
 %   Use & instead of "and"/"og"
 \renewcommand*{\finalnamedelim}{%
   \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
