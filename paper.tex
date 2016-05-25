@@ -75,16 +75,43 @@
     urlseen = {besøkt}
 }
 %   Disable quotes around inbook and incollection
-\DeclareFieldFormat[inbook]{citetitle}{#1}
-\DeclareFieldFormat[inbook]{title}{#1}
-\DeclareFieldFormat[incollection]{citetitle}{#1}
-\DeclareFieldFormat[incollection]{title}{#1}
+\DeclareFieldFormat[inbook,incollection,article]{citetitle}{#1}
+\DeclareFieldFormat[inbook,incollection,article]{title}{#1}
 %    Proper URL styling and text
 \DeclareFieldFormat{url}{Tilgjengeleg frå: <\url{#1}>}
 \DeclareFieldFormat{urldate}{[Lest: #1]}
 %    Append [Internett] to online entries
-\DeclareFieldFormat[online]{title}{\textit{#1} [Internett]}
-\DeclareFieldFormat[incollection]{booktitle}{\iffieldundef{url}{\textit{#1}}{\textit{#1} [Internett]}}
+\DeclareFieldFormat[online]{title}{%
+	\textit{#1}%
+	\iffieldundef{publisher}%
+	{%
+		 \ [Internett]
+	}{}
+}
+\DeclareFieldFormat[online,book]{title}{%
+	\textit{#1}%
+	\iffieldundef{url}%
+	{}
+	{%
+		\iflistundef{publisher}{%
+			\ [Internett]
+		} {}
+	}
+}
+\DeclareListFormat[online,book]{publisher}{%
+  \usebibmacro{list:delim}{#1}%
+  #1\isdot
+  \usebibmacro{list:andothers}%
+  \iffieldundef{url}{}{%
+      \ [Internett]
+  }
+}
+\DeclareFieldFormat[incollection]{booktitle}{%
+    {\mkbibemph{#1}}
+    \iffieldundef{url}{}{%
+      \ [Internett]
+  }
+}
 %   Use & instead of "and"/"og"
 \renewcommand*{\finalnamedelim}{%
   \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
